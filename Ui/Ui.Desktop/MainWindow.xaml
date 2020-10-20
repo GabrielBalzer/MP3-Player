@@ -12,6 +12,7 @@
         Title="{Binding WindowTitle, Mode=OneWay}" Height="450" Width="800"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
+
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Button Command="{Binding ButtonCommand}" ToolTip="Open up an .LST File" Content="Open File">
@@ -24,9 +25,7 @@
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <Grid>
-        <Button Command="{Binding PlayButton}" Content="Play" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding PauseButton}" Content="Pause" HorizontalAlignment="Left" Margin="171,63,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding StopButton}" Content="Stop" HorizontalAlignment="Left" Margin="300,63,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Button Name="PlayButton" Command="{Binding PlayButton}" Content="{Binding PlayButtonText}" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding StopButton}" Content="Stop" HorizontalAlignment="Left" Margin="147,63,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </mah:MetroWindow>

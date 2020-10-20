@@ -27,6 +27,8 @@ namespace MP3Player.Logic.Ui
             PlayButton = new RelayCommand(o => PlayButtonClick("PlayButton"));
             PauseButton = new RelayCommand(o => PauseButtonClick("PauseButton"));
             StopButton = new RelayCommand(o => StopButtonClick("StopButton"));
+            Paused = true;
+            PlayButtonText = "Play";
         }
 
 
@@ -40,6 +42,10 @@ namespace MP3Player.Logic.Ui
         public ICommand PauseButton { get; set; }
 
         public ICommand StopButton { get; set; }
+
+        public string PlayButtonText { get; set; }
+
+        public bool Paused { get; set; }
 
         public MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -58,7 +64,17 @@ namespace MP3Player.Logic.Ui
 
         private void PlayButtonClick(object sender)
         {
-            mediaPlayer.Play();
+            if (Paused)
+            {
+                mediaPlayer.Play();
+                PlayButtonText = "Paused";
+            }
+            else
+            {
+                PlayButtonText = "Play";
+                mediaPlayer.Pause();
+            }
+            Paused = !Paused;
         }
 
         private void PauseButtonClick(object sender)
