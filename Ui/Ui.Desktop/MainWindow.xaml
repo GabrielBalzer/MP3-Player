@@ -11,10 +11,6 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding WindowTitle, Mode=OneWay}" Height="450" Width="800"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <mah:MetroWindow.Resources>
-        <iconPacks:PackIconFontAwesome x:Key="Pause" Kind="Pause"/>
-
-    </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
@@ -28,8 +24,8 @@
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <Grid>
-        <Button Name="PlayButton" Command="{Binding PlayButton}" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75">
-            <DynamicResource ResourceKey="Pause"/>
+        <Button  Command="{Binding PlayButton}" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75">
+            <iconPacks:PackIconFontAwesome Kind="{Binding PlayButtonText}" />
         </Button>
         <ProgressBar Value="{Binding Progress}" HorizontalAlignment="Left" Height="10" Margin="274,200,0,0" VerticalAlignment="Top" Width="366"/>
     </Grid>

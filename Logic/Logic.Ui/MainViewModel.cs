@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -80,7 +81,7 @@ namespace MP3Player.Logic.Ui
             if (Paused)
             {
                 mediaPlayer.Play();
-                PlayButtonText = "Paused";
+                PlayButtonText = "Pause";
             }
             else
             {
