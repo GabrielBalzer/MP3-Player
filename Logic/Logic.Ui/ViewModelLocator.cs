@@ -2,7 +2,7 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
-namespace MP3Player.Ui.Desktop.ViewModel
+namespace MP3Player.Logic.Ui
 {
     /// <summary>
     /// This class contains static references to all the view models in the

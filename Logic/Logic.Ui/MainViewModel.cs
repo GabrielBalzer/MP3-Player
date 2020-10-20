@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
 
-namespace MP3Player.Ui.Desktop.ViewModel
+namespace MP3Player.Logic.Ui
 {
     public class MainViewModel : ViewModelBase
     {
