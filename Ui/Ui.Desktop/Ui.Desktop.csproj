@@ -115,5 +115,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.Ui\Logic.Ui.csproj">
+      <Project>{06f39cec-1706-48cd-a178-35fc8b2660ac}</Project>
+      <Name>Logic.Ui</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
