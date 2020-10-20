@@ -28,4 +28,18 @@
         <Button Name="PlayButton" Command="{Binding PlayButton}" Content="{Binding PlayButtonText}" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75"/>
         <ProgressBar Value="{Binding Progress}" HorizontalAlignment="Left" Height="10" Margin="274,200,0,0" VerticalAlignment="Top" Width="366"/>
     </Grid>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo Description="Media Controls">
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfoCollection>
+                    <ThumbButtonInfo Description="Play" DismissWhenClicked="False" Command="{Binding PlayButton}"
+                                     ImageSource="Images/step-backward-solid.png" />
+                    <ThumbButtonInfo Description="Pause" DismissWhenClicked="False" Command="{Binding PlayButton}"
+                                     ImageSource="Images/play-solid.png" />
+                    <ThumbButtonInfo Description="Stop" DismissWhenClicked="False" Command="{Binding PlayButton}"
+                                     ImageSource="Images/step-forward-solid.png" />
+                </ThumbButtonInfoCollection>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
 </mah:MetroWindow>

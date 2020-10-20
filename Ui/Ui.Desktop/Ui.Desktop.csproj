@@ -135,5 +135,14 @@
       <Name>Logic.Ui</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\step-backward-solid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\play-solid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\step-forward-solid.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
