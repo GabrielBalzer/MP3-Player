@@ -1,8 +1,10 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Win32;
 
 namespace MP3Player.Logic.Ui
@@ -17,11 +19,26 @@ namespace MP3Player.Logic.Ui
             if (IsInDesignMode)
             {
                 WindowTitle = "Design";
+                Progress = 30;
             }
             else
             {
+                DispatcherHelper.Initialize();
+                Progress = 0;
                 WindowTitle = "MP3Player";
-            }
+                Task.Run(
+                    () =>
+                    {
+                        Task.Delay(2000).ContinueWith(
+                            t => {
+                        while (Progress < 100)
+                        {
+                            DispatcherHelper.RunAsync((() => Progress += 5));
+                            Task.Delay(1000).Wait();
+                        }
+                    });
+            });
+        }
 
             ButtonCommand = new RelayCommand(o => MainButtonClick("MainButton"));
             PlayButton = new RelayCommand(o => PlayButtonClick("PlayButton"));
@@ -44,6 +61,8 @@ namespace MP3Player.Logic.Ui
         public ICommand StopButton { get; set; }
 
         public string PlayButtonText { get; set; }
+
+        public int Progress { get; set; }
 
         public bool Paused { get; set; }
 
