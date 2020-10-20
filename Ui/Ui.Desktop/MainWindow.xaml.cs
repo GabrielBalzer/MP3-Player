@@ -14,9 +14,6 @@ namespace MP3Player.Ui.Desktop
             InitializeComponent();
         }
 
-        private void LaunchGitHubSite(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
