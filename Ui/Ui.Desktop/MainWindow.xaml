@@ -14,6 +14,8 @@
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
+            <Button Command="{Binding ButtonCommand}" ToolTip="Open up an .LST File" Content="Open File">
+            </Button>
             <Button Command="{Binding ButtonCommand}" ToolTip="Open up the GitHub site">
                 <iconPacks:PackIconModern Width="22"
                                           Height="22"
@@ -22,6 +24,9 @@
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <Grid>
-        
+        <Button Command="{Binding PlayButton}" Content="Play" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding PauseButton}" Content="Pause" HorizontalAlignment="Left" Margin="171,63,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding StopButton}" Content="Stop" HorizontalAlignment="Left" Margin="300,63,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </mah:MetroWindow>
