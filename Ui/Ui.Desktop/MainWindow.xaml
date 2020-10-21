@@ -9,7 +9,10 @@
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding WindowTitle, Mode=OneWay}" Height="450" Width="800"
+        SaveWindowPosition="True"
+        ShowTitleBar="True"
+        ShowIconOnTitleBar="True"
+        Title="{Binding WindowTitle, Mode=OneWay}" MinHeight="450" MinWidth="800"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <mah:MetroWindow.LeftWindowCommands>
@@ -28,6 +31,7 @@
             <iconPacks:PackIconFontAwesome Kind="{Binding PlayButtonText}" />
         </Button>
         <ProgressBar Value="{Binding Progress}" HorizontalAlignment="Left" Height="10" Margin="274,200,0,0" VerticalAlignment="Top" Width="366"/>
+        <Slider Value="{Binding Slider}" Name="Slider"  AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  Minimum="0" Maximum="100" Orientation="Vertical" HorizontalAlignment="Left" Margin="57,166,0,0" VerticalAlignment="Top" Width="171" Height="122"/>
     </Grid>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="Media Controls">

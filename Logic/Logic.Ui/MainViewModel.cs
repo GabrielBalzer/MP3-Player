@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,6 +56,11 @@ namespace MP3Player.Logic.Ui
 
         public ICommand PlayButton { get; set; }
 
+        public double Slider { get; set; }
+
+
+
+
         public string PlayButtonText { get; set; }
 
         public int Progress { get; set; }
@@ -64,6 +70,7 @@ namespace MP3Player.Logic.Ui
         public MediaPlayer mediaPlayer = new MediaPlayer();
 
 
+
         private void MainButtonClick(object sender)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -71,13 +78,14 @@ namespace MP3Player.Logic.Ui
             if (openFileDialog.ShowDialog() == true)
             {
                 mediaPlayer.Open(new Uri(openFileDialog.FileName));
-                mediaPlayer.Volume = 0.1;
+                mediaPlayer.Volume = 0.8;
 
             }
         }
 
         private void PlayButtonClick(object sender)
         {
+            Console.WriteLine($"New Slider Value is: {Slider}");
             if (Paused)
             {
                 mediaPlayer.Play();
