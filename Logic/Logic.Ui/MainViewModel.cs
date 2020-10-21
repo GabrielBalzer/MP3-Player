@@ -85,8 +85,8 @@ namespace MP3Player.Logic.Ui
 
         private void Printer()
         {
-            Console.WriteLine($"New Slider Value is: {SliderValue / 100}");
-            mediaPlayer.Volume = SliderValue / 100;
+            Console.WriteLine($"New Slider Value is: {SliderValue}");
+            SongPlayer.SetVolume(SliderValue);
         }
 
         public string PlayButtonText { get; set; }
@@ -97,7 +97,6 @@ namespace MP3Player.Logic.Ui
 
         public bool Paused { get; set; }
 
-        public MediaPlayer mediaPlayer = new MediaPlayer();
 
 
 
@@ -107,8 +106,8 @@ namespace MP3Player.Logic.Ui
             openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                mediaPlayer.Open(new Uri(openFileDialog.FileName));
-                mediaPlayer.Volume = SliderValue;
+                SongPlayer.PickFile(openFileDialog.FileName);
+                SongPlayer.SetVolume(SliderValue / 100);
 
             }
         }
@@ -117,13 +116,13 @@ namespace MP3Player.Logic.Ui
         {
             if (Paused)
             {
-                mediaPlayer.Play();
+                SongPlayer.PlaySong();
                 PlayButtonText = "Pause";
             }
             else
             {
                 PlayButtonText = "Play";
-                mediaPlayer.Pause();
+                SongPlayer.PauseSong();
             }
             Paused = !Paused;
         }
