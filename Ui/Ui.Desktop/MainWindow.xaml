@@ -31,7 +31,7 @@
             <iconPacks:PackIconFontAwesome Kind="{Binding PlayButtonText}" />
         </Button>
         <ProgressBar Value="{Binding Progress}" HorizontalAlignment="Left" Height="10" Margin="274,200,0,0" VerticalAlignment="Top" Width="366"/>
-        <Slider Value="{Binding Slider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="Slider"  AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  Minimum="0" Maximum="100" Orientation="Vertical" HorizontalAlignment="Left" Margin="57,166,0,0" VerticalAlignment="Top" Width="171" Height="122"/>
+        <Slider Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsSnapToTickEnabled="True" TickFrequency="1" Name="Slider"  AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  Minimum="0" Maximum="100" Orientation="Vertical" HorizontalAlignment="Left" Margin="57,166,0,0" VerticalAlignment="Top" Width="171" Height="122"/>
         <TextBox   HorizontalAlignment="Left" Height="23" Margin="421,93,0,0" TextWrapping="Wrap" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="120"/>
     </Grid>
     <Window.TaskbarItemInfo>

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,10 +11,17 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Win32;
 
+
 namespace MP3Player.Logic.Ui
 {
-    public class MainViewModel : ViewModelBase, IDataErrorInfo
+    public class MainViewModel : ViewModelBase, INotifyPropertyChanged, IDataErrorInfo
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -57,9 +65,29 @@ namespace MP3Player.Logic.Ui
 
         public ICommand PlayButton { get; set; }
 
-        public double Slider { get; set; }
 
+        private double _sliderValue { get; set; }
 
+        public double SliderValue
+        {
+            get
+            {
+                return _sliderValue;
+            }
+            set
+            {
+                _sliderValue = value;
+                OnPropertyChanged();
+                Printer();
+
+            }
+        }
+
+        private void Printer()
+        {
+            Console.WriteLine($"New Slider Value is: {SliderValue / 100}");
+            mediaPlayer.Volume = SliderValue / 100;
+        }
 
         public string PlayButtonText { get; set; }
 
@@ -80,14 +108,13 @@ namespace MP3Player.Logic.Ui
             if (openFileDialog.ShowDialog() == true)
             {
                 mediaPlayer.Open(new Uri(openFileDialog.FileName));
-                mediaPlayer.Volume = 0.8;
+                mediaPlayer.Volume = SliderValue;
 
             }
         }
 
         private void PlayButtonClick(object sender)
         {
-            Console.WriteLine($"New Slider Value is: {Slider}");
             if (Paused)
             {
                 mediaPlayer.Play();
@@ -106,7 +133,7 @@ namespace MP3Player.Logic.Ui
             get
             {
                 Trace.TraceInformation(propertyName);
-                Console.WriteLine($"New Slider Value is: {Slider}");
+                //Console.WriteLine($"New Slider Value is: {Slider}");
                 return string.Empty;
             }
         }
