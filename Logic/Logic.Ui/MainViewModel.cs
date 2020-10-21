@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ using Microsoft.Win32;
 
 namespace MP3Player.Logic.Ui
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDataErrorInfo
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -60,8 +61,9 @@ namespace MP3Player.Logic.Ui
 
 
 
-
         public string PlayButtonText { get; set; }
+
+        public string FirstName { get; set; }
 
         public int Progress { get; set; }
 
@@ -98,5 +100,17 @@ namespace MP3Player.Logic.Ui
             }
             Paused = !Paused;
         }
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                Trace.TraceInformation(propertyName);
+                Console.WriteLine($"New Slider Value is: {Slider}");
+                return string.Empty;
+            }
+        }
+
+        public string Error => string.Empty;
     }
 }
