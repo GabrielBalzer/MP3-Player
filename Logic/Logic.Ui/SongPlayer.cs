@@ -57,7 +57,18 @@ namespace MP3Player.Logic.Ui
 
         public static double GetCurrentTrackTimeInSeconds()
         {
-            return audioFileReader?.CurrentTime.TotalSeconds ?? 0;
+            if (audioFileReader != null)
+            {
+                double currentTime;
+                currentTime = audioFileReader.CurrentTime.TotalSeconds;
+
+                return Math.Floor(currentTime);
+
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

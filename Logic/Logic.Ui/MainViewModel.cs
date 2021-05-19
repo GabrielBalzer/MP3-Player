@@ -1,16 +1,12 @@
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Threading;
-using Microsoft.Win32;
 
 
 namespace MP3Player.Logic.Ui
@@ -35,22 +31,26 @@ namespace MP3Player.Logic.Ui
             }
             else
             {
-                DispatcherHelper.Initialize();
                 Progress = 0;
                 WindowTitle = "MP3Player";
-                Task.Run(
-                    () =>
-                    {
-                        Task.Delay(2000).ContinueWith(
-                            t => {
-                        while (Progress < 100)
-                        {
-                            DispatcherHelper.RunAsync((() => Progress += 5));
-                            Task.Delay(1000).Wait();
-                        }
-                            });
-            });
             }
+
+
+            DispatcherHelper.Initialize();
+
+            Task.Run(
+                () =>
+                {
+                    Task.Delay(500).ContinueWith(
+                        t => {
+                            while (Progress < 100)
+                            {
+                                //DispatcherHelper.RunAsync((() => Progress += 5));
+                                DispatcherHelper.RunAsync((() => CurrentSongTime = TimeConverter.getCurrentTrackTimeAsString()));
+                                Task.Delay(500).Wait();
+                            }
+                        });
+                });
 
             ButtonCommand = new RelayCommand(o => MainButtonClick("MainButton"));
             PlayButton = new RelayCommand(o => PlayButtonClick("PlayButton"));
@@ -58,9 +58,24 @@ namespace MP3Player.Logic.Ui
             PlayButtonText = "Play";
             CurrentSongTime = "00:00";
             AbsoluteSongTime = "00:00";
+
+            /*DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
+            dispatcherTimer.Start();*/
         }
 
+        private  void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            this.RefreshUI();
+            CommandManager.InvalidateRequerySuggested();
+        }
 
+        private void RefreshUI()
+        {
+            this.CurrentSongTime = SongPlayer.GetCurrentTrackTimeInSeconds()
+                .ToString(CultureInfo.DefaultThreadCurrentCulture);
+        }
 
         public string WindowTitle { get; private set; }
 
@@ -86,6 +101,21 @@ namespace MP3Player.Logic.Ui
             }
         }
 
+        private string _currentSongTime { get; set; }
+
+        public string CurrentSongTime
+        {
+            get
+            {
+                return _currentSongTime;
+            }
+            set
+            {
+                _currentSongTime = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void Printer()
         {
             Console.WriteLine($"New Slider Value is: {SliderValue}");
@@ -96,7 +126,7 @@ namespace MP3Player.Logic.Ui
 
         public string FirstName { get; set; }
 
-        public string CurrentSongTime { get; set; }
+        
         public string AbsoluteSongTime { get; set; }
 
         public int Progress { get; set; }
