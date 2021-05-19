@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -55,6 +56,8 @@ namespace MP3Player.Logic.Ui
             PlayButton = new RelayCommand(o => PlayButtonClick("PlayButton"));
             Paused = true;
             PlayButtonText = "Play";
+            CurrentSongTime = "00:00";
+            AbsoluteSongTime = "00:00";
         }
 
 
@@ -93,6 +96,9 @@ namespace MP3Player.Logic.Ui
 
         public string FirstName { get; set; }
 
+        public string CurrentSongTime { get; set; }
+        public string AbsoluteSongTime { get; set; }
+
         public int Progress { get; set; }
 
         public bool Paused { get; set; }
@@ -102,14 +108,7 @@ namespace MP3Player.Logic.Ui
 
         private void MainButtonClick(object sender)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                SongPlayer.PickFile(openFileDialog.FileName);
-                SongPlayer.SetVolume(SliderValue / 100);
-
-            }
+            FileManager.OpenFile();
         }
 
         private void PlayButtonClick(object sender)

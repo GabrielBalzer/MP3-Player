@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using NAudio.Wave;
 
 namespace MP3Player.Logic.Ui
 {
@@ -14,6 +15,8 @@ namespace MP3Player.Logic.Ui
         public static void PickFile(string fileuri)
         {
             Player.Open(new Uri(fileuri));
+            Mp3FileReader reader = new Mp3FileReader(fileuri);
+            Console.WriteLine(reader.TotalTime);
         }
 
         public static void SetVolume(double volume)
