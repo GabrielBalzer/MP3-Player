@@ -11,14 +11,14 @@ namespace MP3Player.Logic.Ui
     public static class SongPlayer
     {
         private static WaveOutEvent waveOut = new WaveOutEvent();
-        private static Mp3FileReader mp3FileReader;
+        private static AudioFileReader audioFileReader;
        
 
         public static void PickFile(string fileuri)
         {
-            mp3FileReader = new Mp3FileReader(fileuri);
-            waveOut.Init(mp3FileReader);
-            Console.WriteLine(mp3FileReader.TotalTime);
+            audioFileReader = new AudioFileReader(fileuri);
+            waveOut.Init(audioFileReader);
+            Console.WriteLine(audioFileReader.TotalTime);
         }
 
         public static void SetVolume(double volume)
@@ -44,9 +44,9 @@ namespace MP3Player.Logic.Ui
 
         public static double GetTrackLengthInSeconds()
         {
-            if (mp3FileReader != null)
+            if (audioFileReader != null)
             {
-                return mp3FileReader.TotalTime.TotalSeconds;
+                return audioFileReader.TotalTime.TotalSeconds;
 
             }
             else
@@ -57,7 +57,7 @@ namespace MP3Player.Logic.Ui
 
         public static double GetCurrentTrackTimeInSeconds()
         {
-            return mp3FileReader?.CurrentTime.TotalSeconds ?? 0;
+            return audioFileReader?.CurrentTime.TotalSeconds ?? 0;
         }
     }
 }
