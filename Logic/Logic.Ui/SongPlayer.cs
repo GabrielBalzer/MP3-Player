@@ -10,29 +10,54 @@ namespace MP3Player.Logic.Ui
 {
     public static class SongPlayer
     {
-        private static readonly MediaPlayer Player = new MediaPlayer();
+        private static WaveOutEvent waveOut = new WaveOutEvent();
+        private static Mp3FileReader mp3FileReader;
+       
 
         public static void PickFile(string fileuri)
         {
-            Player.Open(new Uri(fileuri));
-            Mp3FileReader reader = new Mp3FileReader(fileuri);
-            Console.WriteLine(reader.TotalTime);
+            mp3FileReader = new Mp3FileReader(fileuri);
+            waveOut.Init(mp3FileReader);
+            Console.WriteLine(mp3FileReader.TotalTime);
         }
 
         public static void SetVolume(double volume)
         {
-            Player.Volume = volume / 100;
-            Console.WriteLine($"Player value is {Player.Volume}");
+            waveOut.Volume = (float) (volume / 100);
+            Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
         public static void PlaySong()
         {
-            Player.Play();
+            waveOut.Play();
         }
 
         public static void PauseSong()
         {
-            Player.Pause();
+            waveOut.Pause();
+        }
+
+        public static void StopSong()
+        {
+            waveOut.Stop();
+        }
+
+        public static double GetTrackLengthInSeconds()
+        {
+            if (mp3FileReader != null)
+            {
+                return mp3FileReader.TotalTime.TotalSeconds;
+
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static double GetCurrentTrackTimeInSeconds()
+        {
+            return mp3FileReader?.CurrentTime.TotalSeconds ?? 0;
         }
     }
 }
