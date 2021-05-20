@@ -13,7 +13,9 @@
         ShowTitleBar="True"
         ShowIconOnTitleBar="True"
         Title="{Binding WindowTitle, Mode=OneWay}" MinHeight="450" MinWidth="800"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        >
+
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
@@ -27,14 +29,29 @@
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <Grid>
-        <Button  Command="{Binding PlayButton}" HorizontalAlignment="Left" Margin="47,63,0,0" VerticalAlignment="Top" Width="75">
+        <Button  Command="{Binding BackwardButton}" HorizontalAlignment="Left" Margin="28,64,0,0" VerticalAlignment="Top" Width="75">
+            <iconPacks:PackIconFontAwesome Kind="Backward" />
+        </Button>
+        <Button  Command="{Binding PlayButton}" HorizontalAlignment="Left" Margin="128,64,0,0" VerticalAlignment="Top" Width="75">
             <iconPacks:PackIconFontAwesome Kind="{Binding PlayButtonText}" />
         </Button>
-        <ProgressBar Value="{Binding Progress}" HorizontalAlignment="Left" Height="10" Margin="198,338,0,0" VerticalAlignment="Top" Width="366"/>
-        <Slider Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsSnapToTickEnabled="True" TickFrequency="1" Name="Slider"  AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  Minimum="0" Maximum="100" Orientation="Vertical" HorizontalAlignment="Left" Margin="47,176,0,0" VerticalAlignment="Top" Width="169" Height="129"/>
-        <TextBox   HorizontalAlignment="Left" Height="23" Margin="421,93,0,0" TextWrapping="Wrap" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="120"/>
+        <Button  Command="{Binding ForwardButton}" HorizontalAlignment="Left" Margin="234,64,0,0" VerticalAlignment="Top" Width="75">
+            <iconPacks:PackIconFontAwesome Kind="Forward" />
+        </Button>
+        <Slider PreviewMouseDown="ProgressSlider_OnPreviewMouseDown"  Style="{DynamicResource MahApps.Styles.Slider.Flat}"  Value="{Binding ProgressSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsSnapToTickEnabled="True" TickFrequency="1" Name="ProgressSlider"   Minimum="0" Maximum="1000" Orientation="Horizontal" HorizontalAlignment="Left" Margin="198,311,0,0" VerticalAlignment="Top" Width="366" Height="1">
+        </Slider>
+            <Slider Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsSnapToTickEnabled="True" TickFrequency="1" Name="Slider"  AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  Minimum="0" Maximum="100" Orientation="Vertical" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="169" Height="129"/>
+        <TextBox   HorizontalAlignment="Left" Height="23" Margin="582,28,0,0" TextWrapping="Wrap" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="120"/>
         <Label Content="{Binding CurrentSongTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Margin="106,338,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding AbsoluteSongTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Margin="623,338,0,0" VerticalAlignment="Top"/>
+        <DataGrid ItemsSource="{Binding Playlist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Name="SongData" HorizontalAlignment="Left" Height="136" Margin="302,93,0,0" VerticalAlignment="Top" Width="269">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Pfad" Binding="{Binding FilePath , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="*" IsReadOnly="True" />
+                <DataGridTextColumn Header="TrackName" Binding="{Binding TrackName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Playing" Binding="{Binding IsPlaying, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="*" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="Media Controls">

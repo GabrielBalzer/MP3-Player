@@ -1,11 +1,14 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 
@@ -24,6 +27,12 @@ namespace MP3Player.Logic.Ui
         /// </summary>
         public MainViewModel()
         {
+            Application.Current.MainWindow.Closing += MainWindow_Closing;
+            Communicator.ProgressSliderIsDragging = false;
+            Communicator.ProgressSliderValueChanged = false;
+
+            Playlist = PlaylistHandler.playlist;
+
             if (IsInDesignMode)
             {
                 WindowTitle = "Design";
@@ -41,28 +50,50 @@ namespace MP3Player.Logic.Ui
             Task.Run(
                 () =>
                 {
-                    Task.Delay(500).ContinueWith(
+                    Task.Delay(100).ContinueWith(
                         t => {
                             while (Progress < 100)
                             {
-                                //DispatcherHelper.RunAsync((() => Progress += 5));
-                                DispatcherHelper.RunAsync((() => CurrentSongTime = TimeConverter.getCurrentTrackTimeAsString()));
-                                Task.Delay(500).Wait();
+
+                                if (Communicator.ProgressSliderValueChanged)
+                                {
+                                    SongPlayer.SetPosition((int)ProgressSliderValue);
+                                    Communicator.ProgressSliderValueChanged = false;
+                                    //Console.WriteLine("Loopcomm");
+                                }
+
+                                if (!Communicator.ProgressSliderIsDragging)
+                                {
+                                    DispatcherHelper.RunAsync((() => ProgressSliderValue = SongPlayer.GetCurrentTrackProgress()));
+                                }
+
+                                DispatcherHelper.RunAsync((() => CurrentSongTime = TimeConverter.GetCurrentTrackTimeAsString()));
+                                DispatcherHelper.RunAsync((() => AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString()));
+                                Task.Delay(100).Wait();
                             }
                         });
                 });
 
-            ButtonCommand = new RelayCommand(o => MainButtonClick("MainButton"));
+            ButtonCommand = new RelayCommand(o => OpenFileButtonClick("MainButton"));
             PlayButton = new RelayCommand(o => PlayButtonClick("PlayButton"));
+            ForwardButton = new RelayCommand(o => ForwardButtonClick("ForwardButton"));
+            BackwardButton = new RelayCommand(o => BackwardButtonClick("BackwardButton"));
             Paused = true;
             PlayButtonText = "Play";
-            CurrentSongTime = "00:00";
-            AbsoluteSongTime = "00:00";
+            CurrentSongTime = "00 : 00";
+            AbsoluteSongTime = "00 : 00";
 
-            /*DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
-            dispatcherTimer.Start();*/
+
+
+
+        }
+
+
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            SongPlayer.ClearSongReader();
+            Application.Current.Shutdown();
         }
 
         private  void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -83,7 +114,25 @@ namespace MP3Player.Logic.Ui
 
         public ICommand PlayButton { get; set; }
 
+        public ICommand BackwardButton { get; set; }
 
+        public ICommand ForwardButton { get; set; }
+
+        private double _progressSliderValue { get; set; }
+
+        public double ProgressSliderValue
+        {
+            get
+            {
+                return _progressSliderValue;
+            }
+            set
+            {
+                _progressSliderValue = value;
+                OnPropertyChanged();
+
+            }
+        }
         private double _sliderValue { get; set; }
 
         public double SliderValue
@@ -96,7 +145,8 @@ namespace MP3Player.Logic.Ui
             {
                 _sliderValue = value;
                 OnPropertyChanged();
-                Printer();
+                Console.WriteLine($"New Slider Value is: {SliderValue}");
+                SongPlayer.SetVolume(SliderValue);
 
             }
         }
@@ -116,11 +166,21 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        private void Printer()
+        private TrulyObservableCollection<SingleTrack> _playlist { get; set; }
+
+        public TrulyObservableCollection<SingleTrack> Playlist
         {
-            Console.WriteLine($"New Slider Value is: {SliderValue}");
-            SongPlayer.SetVolume(SliderValue);
+            get
+            {
+                return _playlist;
+            }
+            set
+            {
+                _playlist = value;
+                OnPropertyChanged();
+            }
         }
+
 
         public string PlayButtonText { get; set; }
 
@@ -136,14 +196,14 @@ namespace MP3Player.Logic.Ui
 
 
 
-        private void MainButtonClick(object sender)
+        private void OpenFileButtonClick(object sender)
         {
-            FileManager.OpenFile();
+            FileManager.AddFileToPlaylist();
         }
 
         private void PlayButtonClick(object sender)
         {
-            if (Paused)
+            if (SongPlayer.getPauseStatus())
             {
                 SongPlayer.PlaySong();
                 PlayButtonText = "Pause";
@@ -153,7 +213,18 @@ namespace MP3Player.Logic.Ui
                 PlayButtonText = "Play";
                 SongPlayer.PauseSong();
             }
+            AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString();
             Paused = !Paused;
+        }
+
+        private void ForwardButtonClick(object sender)
+        {
+           SongPlayer.PlayNextSong();
+        }
+
+        private void BackwardButtonClick(object sender)
+        {
+            SongPlayer.PlayLastSong();
         }
 
         public string this[string propertyName]
