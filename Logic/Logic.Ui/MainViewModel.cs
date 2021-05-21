@@ -208,7 +208,7 @@ namespace MP3Player.Logic.Ui
 
         private void PlayButtonClick(object sender)
         {
-            if (songPlayer.getPauseStatus())
+            if (songPlayer.GetPauseStatus())
             {
                 songPlayer.PlaySong();
                 PlayButtonText = "Pause";

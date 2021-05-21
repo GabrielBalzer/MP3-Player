@@ -10,14 +10,14 @@ using NAudio.Wave;
 
 namespace MP3Player.Logic.Ui
 {
-    public class SongPlayer
+    public class SongPlayer : ISongPlayer
     {
         private WaveOutEvent waveOut = new WaveOutEvent();
         private  AudioFileReader audioFileReader;
         private bool PlayBackPaused;
-        private PlaylistHandler playlistHandler;
+        private IPlaylistHandler playlistHandler;
 
-        public SongPlayer(PlaylistHandler playlistHandler)
+        public SongPlayer(IPlaylistHandler playlistHandler)
         {
             this.waveOut.PlaybackStopped += OnPlayBackStopped;
             this.PlayBackPaused = true;
@@ -49,7 +49,7 @@ namespace MP3Player.Logic.Ui
 
         
 
-        public bool getPauseStatus()
+        public bool GetPauseStatus()
         {
             return PlayBackPaused;
         }
