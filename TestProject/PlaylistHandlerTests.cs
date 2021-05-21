@@ -9,17 +9,17 @@ namespace TestProject
         public void TestIfFirstElementIsReturnedCorrectly()
         {
             PlaylistHandler playlistHandler = new PlaylistHandler();
-            var expecteSingleTrack = new SingleTrack("test1", "test1", "1", true);
+            var expectedSingleTrack = new SingleTrack("test1", "test1", "1", true);
 
             playlistHandler.addSongToPlaylist(new SingleTrack("test1", "test1", "1", true));
             playlistHandler.addSongToPlaylist(new SingleTrack("test2", "test2", "2", false));
 
             var resultSingleTrack = playlistHandler.returnFirstTrack();
 
-            Assert.Equal(expecteSingleTrack.FilePath, resultSingleTrack.FilePath);
-            Assert.Equal(expecteSingleTrack.TrackName, resultSingleTrack.TrackName);
-            Assert.Equal(expecteSingleTrack.TrackNumber, resultSingleTrack.TrackNumber);
-            Assert.Equal(expecteSingleTrack.IsPlaying, resultSingleTrack.IsPlaying);
+            Assert.Equal(expectedSingleTrack.FilePath, resultSingleTrack.FilePath);
+            Assert.Equal(expectedSingleTrack.TrackName, resultSingleTrack.TrackName);
+            Assert.Equal(expectedSingleTrack.TrackNumber, resultSingleTrack.TrackNumber);
+            Assert.Equal(expectedSingleTrack.IsPlaying, resultSingleTrack.IsPlaying);
         }
 
         [Fact]
