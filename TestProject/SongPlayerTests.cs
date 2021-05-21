@@ -46,7 +46,7 @@ namespace TestProject
         [Fact]
         public void VolumeChangeWorksAsExpected()
         {
-            float expectedVolume = (float)0.25;
+            float expectedVolume = (float) 0.25;
 
             var playListHandlerMock = new Mock<IPlaylistHandler>();
             SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
@@ -59,8 +59,8 @@ namespace TestProject
         [Fact]
         public void VolumeChangeWithWrongValues()
         {
-            float expectedLowValue = (float)0.00;
-            float expectedHighValue = (float)1.00;
+            float expectedLowValue = (float) 0.00;
+            float expectedHighValue = (float) 1.00;
 
 
             var playListHandlerMock = new Mock<IPlaylistHandler>();
@@ -76,25 +76,5 @@ namespace TestProject
             Assert.Equal(expectedHighValue, songPlayer.GetCurrentVolume(), 2);
         }
 
-        [Fact]
-        public void CheckIfSongStartsPlayingIfNoTrackInPlaylist()
-        {
-
-            string expectedResult = "No Track in Playlist";
-
-            var playListHandlerMock = new Mock<IPlaylistHandler>();
-            playListHandlerMock.Setup(p => p.returnFirstTrack()).Returns((SingleTrack)null);
-
-            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
-
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                songPlayer.PlaySong();
-
-                var result = sw.ToString().Trim();
-                Assert.Equal(expectedResult, result);
-            }
-        }
     }
 }
