@@ -59,11 +59,13 @@ namespace TestProject
             SongPlayer songPlayer = new SongPlayer();
             songPlayer.SetVolume(-5);
 
-            SongPlayer songPlayer2 = new SongPlayer();
-            songPlayer2.SetVolume(150);
+            Assert.Equal(expectedLowValue, songPlayer.GetCurrentVolume());
 
-            Assert.Equal(expectedLowValue, songPlayer.GetCurrentVolume(), 2);
-            Assert.Equal(expectedHighValue, songPlayer2.GetCurrentVolume(), 2);
+            songPlayer = new SongPlayer();
+            songPlayer.SetVolume(150);
+
+
+            Assert.Equal(expectedHighValue, songPlayer.GetCurrentVolume(), 2);
         }
     }
 }
