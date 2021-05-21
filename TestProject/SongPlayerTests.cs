@@ -39,7 +39,7 @@ namespace TestProject
         }
 
         [Fact]
-        public void CheckIfVolumeChangeWorksAsExpected()
+        public void VolumeChangeWorksAsExpected()
         {
             float expectedVolume = (float) 0.25;
 
@@ -48,6 +48,22 @@ namespace TestProject
 
             Assert.Equal(expectedVolume, songPlayer.GetCurrentVolume(), 2);
 
+        }
+
+        [Fact]
+        public void VolumeChangeWithWrongValues()
+        {
+            float expectedLowValue = (float) 0.00;
+            float expectedHighValue = (float) 1.00;
+
+            SongPlayer songPlayer = new SongPlayer();
+            songPlayer.SetVolume(-5);
+
+            SongPlayer songPlayer2 = new SongPlayer();
+            songPlayer2.SetVolume(150);
+
+            Assert.Equal(expectedLowValue, songPlayer.GetCurrentVolume(), 2);
+            Assert.Equal(expectedHighValue, songPlayer2.GetCurrentVolume(), 2);
         }
     }
 }
