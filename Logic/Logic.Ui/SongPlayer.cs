@@ -14,10 +14,12 @@ namespace MP3Player.Logic.Ui
     {
         private WaveOutEvent waveOut = new WaveOutEvent();
         private  AudioFileReader audioFileReader;
+        private bool PlayBackPaused;
 
         public SongPlayer()
         {
             waveOut.PlaybackStopped += OnPlayBackStopped;
+            PlayBackPaused = true;
         }
 
 
@@ -27,7 +29,7 @@ namespace MP3Player.Logic.Ui
             Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
-        private bool PlayBackPaused = true;
+        
 
         public bool getPauseStatus()
         {
