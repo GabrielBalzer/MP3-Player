@@ -39,7 +39,7 @@ namespace MP3Player.Logic.Ui
             {
                 waveOut.Volume = (float)(volume / 100);
             }
-            Console.WriteLine($"Player value is {waveOut.Volume}");
+            //Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
         public float GetCurrentVolume()
