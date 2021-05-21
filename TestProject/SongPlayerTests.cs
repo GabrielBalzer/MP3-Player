@@ -44,6 +44,19 @@ namespace TestProject
         }
 
         [Fact]
+        public void VolumeChangeWorksAsExpected()
+        {
+            float expectedVolume = (float)0.25;
+
+            var playListHandlerMock = new Mock<IPlaylistHandler>();
+            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
+            songPlayer.SetVolume(25);
+
+            Assert.Equal(expectedVolume, songPlayer.GetCurrentVolume(), 2);
+
+        }
+
+        [Fact]
         public void CheckIfSongStartsPlayingIfNoTrackInPlaylist()
         {
 
