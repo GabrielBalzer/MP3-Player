@@ -4,7 +4,7 @@ namespace MP3Player.Logic.Ui
 {
     public static class TimeConverter
     {
-        public static string GetCurrentTrackTimeAsString(SongPlayer songPlayer)
+        public static string GetCurrentTrackTimeAsString(ISongPlayer songPlayer)
         {
             TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetCurrentTrackTimeInSeconds());
 
@@ -15,7 +15,7 @@ namespace MP3Player.Logic.Ui
             return result;
         }
 
-        public static string GetAbsoluteTrackTimeAsString(SongPlayer songPlayer)
+        public static string GetAbsoluteTrackTimeAsString(ISongPlayer songPlayer)
         {
             TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetTrackLengthInSeconds());
 
