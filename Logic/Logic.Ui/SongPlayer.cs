@@ -48,7 +48,7 @@ namespace MP3Player.Logic.Ui
                 var firstTrack = PlaylistHandler.returnFirstTrack();
                 if (firstTrack == null)
                 {
-                    Console.WriteLine("Not possible");
+                    Console.WriteLine("No Track in Playlist");
                 }
                 else
                 {
