@@ -20,6 +20,18 @@ namespace TestProject
         }
 
         [Fact]
+        public void PlayerStaysInPauseStatusOnBackwardButton()
+        {
+            bool expectedPauseStatus = true;
+
+            var playListHandlerMock = new Mock<IPlaylistHandler>();
+            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
+            songPlayer.PlayLastSong();
+
+            Assert.Equal(expectedPauseStatus, songPlayer.GetPauseStatus());
+        }
+
+        [Fact]
         public void CheckIfSongStartsPlayingIfNoTrackInPlaylist()
         {
 
