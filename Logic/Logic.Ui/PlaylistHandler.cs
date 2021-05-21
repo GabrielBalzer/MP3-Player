@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace MP3Player.Logic.Ui
 {
-    public class PlaylistHandler
+    public class PlaylistHandler : IPlaylistHandler
     {
         public TrulyObservableCollection<SingleTrack> playlist = new TrulyObservableCollection<SingleTrack>();
         private int songIndex = 0;

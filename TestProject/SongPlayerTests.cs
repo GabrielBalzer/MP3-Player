@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Moq;
 using MP3Player.Logic.Ui;
 using Xunit;
 
@@ -11,9 +13,9 @@ namespace TestProject
         {
             bool expectedPauseStatus = true;
 
-            SongPlayer songPlayer = new SongPlayer();
+            SongPlayer songPlayer = new SongPlayer(new PlaylistHandler());
 
-            Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
+            Assert.Equal(expectedPauseStatus, songPlayer.GetPauseStatus());
         }
 
         [Fact]
@@ -21,10 +23,10 @@ namespace TestProject
         {
             bool expectedPauseStatus = true;
 
-            SongPlayer songPlayer = new SongPlayer();
+            SongPlayer songPlayer = new SongPlayer(new PlaylistHandler());
             songPlayer.PlayLastSong();
 
-            Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
+            Assert.Equal(expectedPauseStatus, songPlayer.GetPauseStatus());
         }
 
         [Fact]
@@ -32,10 +34,10 @@ namespace TestProject
         {
             bool expectedPauseStatus = true;
 
-            SongPlayer songPlayer = new SongPlayer();
+            SongPlayer songPlayer = new SongPlayer(new PlaylistHandler());
             songPlayer.PlayNextSong();
 
-            Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
+            Assert.Equal(expectedPauseStatus, songPlayer.GetPauseStatus());
         }
 
         [Fact]
@@ -43,7 +45,7 @@ namespace TestProject
         {
             float expectedVolume = (float) 0.25;
 
-            SongPlayer songPlayer = new SongPlayer();
+            SongPlayer songPlayer = new SongPlayer(new PlaylistHandler());
             songPlayer.SetVolume(25);
 
             Assert.Equal(expectedVolume, songPlayer.GetCurrentVolume(), 2);
@@ -56,16 +58,36 @@ namespace TestProject
             float expectedLowValue = (float) 0.00;
             float expectedHighValue = (float) 1.00;
 
-            SongPlayer songPlayer = new SongPlayer();
+            SongPlayer songPlayer = new SongPlayer(new PlaylistHandler());
             songPlayer.SetVolume(-5);
 
             Assert.Equal(expectedLowValue, songPlayer.GetCurrentVolume());
 
-            songPlayer = new SongPlayer();
+            songPlayer = new SongPlayer(new PlaylistHandler());
             songPlayer.SetVolume(150);
 
 
             Assert.Equal(expectedHighValue, songPlayer.GetCurrentVolume(), 2);
+        }
+
+        [Fact]
+        public void PlaySong()
+        {
+
+            string expectedResult = "No Track in Playlist";
+            var playListHandlerMock = new Mock<IPlaylistHandler>();
+            playListHandlerMock.Setup(p => p.returnFirstTrack()).Returns((SingleTrack)null);
+
+            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
+
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                songPlayer.PlaySong();
+
+                var result = sw.ToString().Trim();
+                Assert.Equal(expectedResult, result);
+            }
         }
     }
 }
