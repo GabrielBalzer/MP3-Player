@@ -29,6 +29,11 @@ namespace MP3Player.Logic.Ui
             Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
+        public float GetCurrentVolume()
+        {
+            return waveOut.Volume;
+        }
+
         
 
         public bool getPauseStatus()
