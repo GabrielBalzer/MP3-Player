@@ -17,6 +17,7 @@ namespace MP3Player.Logic.Ui
     public class MainViewModel : ViewModelBase, INotifyPropertyChanged, IDataErrorInfo
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public SongPlayer songPlayer = new SongPlayer();
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -32,6 +33,7 @@ namespace MP3Player.Logic.Ui
             Communicator.ProgressSliderValueChanged = false;
 
             Playlist = PlaylistHandler.playlist;
+            
 
             if (IsInDesignMode)
             {
@@ -57,18 +59,18 @@ namespace MP3Player.Logic.Ui
 
                                 if (Communicator.ProgressSliderValueChanged)
                                 {
-                                    SongPlayer.SetPosition((int)ProgressSliderValue);
+                                    songPlayer.SetPosition((int)ProgressSliderValue);
                                     Communicator.ProgressSliderValueChanged = false;
                                     //Console.WriteLine("Loopcomm");
                                 }
 
                                 if (!Communicator.ProgressSliderIsDragging)
                                 {
-                                    DispatcherHelper.RunAsync((() => ProgressSliderValue = SongPlayer.GetCurrentTrackProgress()));
+                                    DispatcherHelper.RunAsync((() => ProgressSliderValue = songPlayer.GetCurrentTrackProgress()));
                                 }
 
-                                DispatcherHelper.RunAsync((() => CurrentSongTime = TimeConverter.GetCurrentTrackTimeAsString()));
-                                DispatcherHelper.RunAsync((() => AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString()));
+                                DispatcherHelper.RunAsync((() => CurrentSongTime = TimeConverter.GetCurrentTrackTimeAsString(songPlayer)));
+                                DispatcherHelper.RunAsync((() => AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString(songPlayer)));
                                 Task.Delay(100).Wait();
                             }
                         });
@@ -92,7 +94,7 @@ namespace MP3Player.Logic.Ui
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            SongPlayer.ClearSongReader();
+            songPlayer.ClearSongReader();
             Application.Current.Shutdown();
         }
 
@@ -104,7 +106,7 @@ namespace MP3Player.Logic.Ui
 
         private void RefreshUI()
         {
-            this.CurrentSongTime = SongPlayer.GetCurrentTrackTimeInSeconds()
+            this.CurrentSongTime = songPlayer.GetCurrentTrackTimeInSeconds()
                 .ToString(CultureInfo.DefaultThreadCurrentCulture);
         }
 
@@ -146,7 +148,7 @@ namespace MP3Player.Logic.Ui
                 _sliderValue = value;
                 OnPropertyChanged();
                 Console.WriteLine($"New Slider Value is: {SliderValue}");
-                SongPlayer.SetVolume(SliderValue);
+                songPlayer.SetVolume(SliderValue);
 
             }
         }
@@ -203,28 +205,28 @@ namespace MP3Player.Logic.Ui
 
         private void PlayButtonClick(object sender)
         {
-            if (SongPlayer.getPauseStatus())
+            if (songPlayer.getPauseStatus())
             {
-                SongPlayer.PlaySong();
+                songPlayer.PlaySong();
                 PlayButtonText = "Pause";
             }
             else
             {
                 PlayButtonText = "Play";
-                SongPlayer.PauseSong();
+                songPlayer.PauseSong();
             }
-            AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString();
+            AbsoluteSongTime = TimeConverter.GetAbsoluteTrackTimeAsString(songPlayer);
             Paused = !Paused;
         }
 
         private void ForwardButtonClick(object sender)
         {
-           SongPlayer.PlayNextSong();
+           songPlayer.PlayNextSong();
         }
 
         private void BackwardButtonClick(object sender)
         {
-            SongPlayer.PlayLastSong();
+            songPlayer.PlayLastSong();
         }
 
         public string this[string propertyName]

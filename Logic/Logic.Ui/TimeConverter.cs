@@ -4,9 +4,9 @@ namespace MP3Player.Logic.Ui
 {
     public static class TimeConverter
     {
-        public static string GetCurrentTrackTimeAsString()
+        public static string GetCurrentTrackTimeAsString(SongPlayer songPlayer)
         {
-            TimeSpan t = TimeSpan.FromSeconds(SongPlayer.GetCurrentTrackTimeInSeconds());
+            TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetCurrentTrackTimeInSeconds());
 
             string result = string.Format("{0:D2} : {1:D2}",
                 t.Minutes,
@@ -15,9 +15,9 @@ namespace MP3Player.Logic.Ui
             return result;
         }
 
-        public static string GetAbsoluteTrackTimeAsString()
+        public static string GetAbsoluteTrackTimeAsString(SongPlayer songPlayer)
         {
-            TimeSpan t = TimeSpan.FromSeconds(SongPlayer.GetTrackLengthInSeconds());
+            TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetTrackLengthInSeconds());
 
             string result = string.Format("{0:D2} : {1:D2}",
                 t.Minutes,

@@ -10,31 +10,31 @@ using NAudio.Wave;
 
 namespace MP3Player.Logic.Ui
 {
-    public static class SongPlayer
+    public class SongPlayer
     {
-        private static WaveOutEvent waveOut = new WaveOutEvent();
-        private static AudioFileReader audioFileReader;
+        private WaveOutEvent waveOut = new WaveOutEvent();
+        private  AudioFileReader audioFileReader;
 
-        static SongPlayer()
+        public SongPlayer()
         {
             waveOut.PlaybackStopped += OnPlayBackStopped;
         }
 
 
-        public static void SetVolume(double volume)
+        public void SetVolume(double volume)
         {
             waveOut.Volume = (float) (volume / 100);
             Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
-        private static bool PlayBackPaused = true;
+        private bool PlayBackPaused = true;
 
-        public static bool getPauseStatus()
+        public bool getPauseStatus()
         {
             return PlayBackPaused;
         }
 
-        public static void PlaySong()
+        public void PlaySong()
         {
             if ((audioFileReader == null) || waveOut == null)
             {
@@ -78,24 +78,24 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static void OnPlayBackStopped(object sender, StoppedEventArgs e)
+        public void OnPlayBackStopped(object sender, StoppedEventArgs e)
         {
             Console.WriteLine("PlaybackstoppedEvent");
             PlaySong();
         }
 
-        public static void PauseSong()
+        public void PauseSong()
         {
             waveOut.Pause();
             PlayBackPaused = true;
         }
 
-        public static void StopSong()
+        public void StopSong()
         {
             waveOut.Stop();
         }
 
-        public static void PlayNextSong()
+        public void PlayNextSong()
         {
             if (!PlayBackPaused)
             {
@@ -108,7 +108,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static void PlayLastSong()
+        public void PlayLastSong()
         {
             if (!PlayBackPaused)
             {
@@ -121,7 +121,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static double GetTrackLengthInSeconds()
+        public double GetTrackLengthInSeconds()
         {
             if (audioFileReader != null)
             {
@@ -134,7 +134,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static double GetCurrentTrackTimeInSeconds()
+        public double GetCurrentTrackTimeInSeconds()
         {
             if (audioFileReader != null)
             {
@@ -148,7 +148,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static void ClearSongReader()
+        public void ClearSongReader()
         {
             if (audioFileReader != null)
             {
@@ -162,7 +162,7 @@ namespace MP3Player.Logic.Ui
             
         }
 
-        public static int GetCurrentTrackProgress()
+        public int GetCurrentTrackProgress()
         {
             if (audioFileReader != null)
             {
@@ -188,7 +188,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static void SetPosition(int value)
+        public void SetPosition(int value)
         {
             if (audioFileReader != null)
             {
