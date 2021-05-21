@@ -8,7 +8,16 @@ namespace TestProject
 {
     public class SongPlayerTests
     {
+        [Fact]
+        public void PlayerStartsInPauseState()
+        {
+            bool expectedPauseStatus = true;
 
+            var playListHandlerMock = new Mock<IPlaylistHandler>();
+            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
+
+            Assert.Equal(expectedPauseStatus, songPlayer.GetPauseStatus());
+        }
 
         [Fact]
         public void CheckIfSongStartsPlayingIfNoTrackInPlaylist()
