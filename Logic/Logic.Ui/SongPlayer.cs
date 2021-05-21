@@ -25,7 +25,18 @@ namespace MP3Player.Logic.Ui
 
         public void SetVolume(double volume)
         {
-            waveOut.Volume = (float) (volume / 100);
+            if (volume >= 100)
+            {
+                waveOut.Volume = 1;
+            }
+            else if (volume <= 0)
+            {
+                waveOut.Volume = 0;
+            }
+            else
+            {
+                waveOut.Volume = (float)(volume / 100);
+            }
             Console.WriteLine($"Player value is {waveOut.Volume}");
         }
 
