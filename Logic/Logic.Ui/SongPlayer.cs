@@ -15,11 +15,13 @@ namespace MP3Player.Logic.Ui
         private WaveOutEvent waveOut = new WaveOutEvent();
         private  AudioFileReader audioFileReader;
         private bool PlayBackPaused;
+        private PlaylistHandler playlistHandler;
 
-        public SongPlayer()
+        public SongPlayer(PlaylistHandler playlistHandler)
         {
-            waveOut.PlaybackStopped += OnPlayBackStopped;
-            PlayBackPaused = true;
+            this.waveOut.PlaybackStopped += OnPlayBackStopped;
+            this.PlayBackPaused = true;
+            this.playlistHandler = playlistHandler;
         }
 
 
@@ -56,14 +58,14 @@ namespace MP3Player.Logic.Ui
         {
             if ((audioFileReader == null) || waveOut == null)
             {
-                var firstTrack = PlaylistHandler.returnFirstTrack();
+                var firstTrack = playlistHandler.returnFirstTrack();
                 if (firstTrack == null)
                 {
                     Console.WriteLine("No Track in Playlist");
                 }
                 else
                 {
-                    audioFileReader = new AudioFileReader(PlaylistHandler.returnFirstTrack().FilePath);
+                    audioFileReader = new AudioFileReader(playlistHandler.returnFirstTrack().FilePath);
                     waveOut.Init(audioFileReader);
 
                     PlayBackPaused = false;
@@ -87,7 +89,7 @@ namespace MP3Player.Logic.Ui
                 }
                 else
                 {
-                        audioFileReader = new AudioFileReader(PlaylistHandler.GetNextTrack().FilePath);
+                        audioFileReader = new AudioFileReader(playlistHandler.GetNextTrack().FilePath);
                         waveOut.Stop();
                         waveOut.Init(audioFileReader);
                         waveOut.Play();
@@ -118,7 +120,7 @@ namespace MP3Player.Logic.Ui
             if (!PlayBackPaused)
             {
                 waveOut.PlaybackStopped -= OnPlayBackStopped;
-                audioFileReader = new AudioFileReader(PlaylistHandler.GetNextTrack().FilePath);
+                audioFileReader = new AudioFileReader(playlistHandler.GetNextTrack().FilePath);
                 waveOut.Stop();
                 waveOut.Init(audioFileReader);
                 waveOut.Play();
@@ -131,7 +133,7 @@ namespace MP3Player.Logic.Ui
             if (!PlayBackPaused)
             {
                 waveOut.PlaybackStopped -= OnPlayBackStopped;
-                audioFileReader = new AudioFileReader(PlaylistHandler.GetLastTrack().FilePath);
+                audioFileReader = new AudioFileReader(playlistHandler.GetLastTrack().FilePath);
                 waveOut.Stop();
                 waveOut.Init(audioFileReader);
                 waveOut.Play();

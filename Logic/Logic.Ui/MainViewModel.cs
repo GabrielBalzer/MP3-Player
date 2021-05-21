@@ -17,7 +17,10 @@ namespace MP3Player.Logic.Ui
     public class MainViewModel : ViewModelBase, INotifyPropertyChanged, IDataErrorInfo
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public SongPlayer songPlayer = new SongPlayer();
+        public static PlaylistHandler playlistHandler = new PlaylistHandler();
+        public SongPlayer songPlayer = new SongPlayer(playlistHandler);
+        public FileManager fileManager = new FileManager();
+        
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -31,8 +34,8 @@ namespace MP3Player.Logic.Ui
             Application.Current.MainWindow.Closing += MainWindow_Closing;
             Communicator.ProgressSliderIsDragging = false;
             Communicator.ProgressSliderValueChanged = false;
-
-            Playlist = PlaylistHandler.playlist;
+            Playlist = playlistHandler.playlist;
+            
             
 
             if (IsInDesignMode)
@@ -200,7 +203,7 @@ namespace MP3Player.Logic.Ui
 
         private void OpenFileButtonClick(object sender)
         {
-            FileManager.AddFileToPlaylist();
+            fileManager.AddFileToPlaylist(playlistHandler);
         }
 
         private void PlayButtonClick(object sender)

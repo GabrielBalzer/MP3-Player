@@ -5,22 +5,22 @@ using System.Windows.Input;
 
 namespace MP3Player.Logic.Ui
 {
-    public static class PlaylistHandler
+    public class PlaylistHandler
     {
-        public static TrulyObservableCollection<SingleTrack> playlist = new TrulyObservableCollection<SingleTrack>();
-        private static int songIndex = 0;
+        public TrulyObservableCollection<SingleTrack> playlist = new TrulyObservableCollection<SingleTrack>();
+        private int songIndex = 0;
 
-        public static TrulyObservableCollection<SingleTrack> returnWholePlaylist()
+        public TrulyObservableCollection<SingleTrack> returnWholePlaylist()
         {
             return playlist;
         }
 
-        public static void addSongToPlaylist(SingleTrack track)
+        public void addSongToPlaylist(SingleTrack track)
         {
             playlist.Add(track);
         }
 
-        public static SingleTrack returnFirstTrack()
+        public SingleTrack returnFirstTrack()
         {
             if (playlist.Count != 0)
             {
@@ -34,12 +34,12 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static int getNumberOfTracks()
+        public int getNumberOfTracks()
         {
             return playlist.Count;
         }
 
-        public static SingleTrack GetNextTrack()
+        public SingleTrack GetNextTrack()
         {
             if (songIndex < playlist.Count - 1)
             {
@@ -56,7 +56,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public static SingleTrack GetLastTrack()
+        public SingleTrack GetLastTrack()
         {
             if (songIndex == 0)
             {
