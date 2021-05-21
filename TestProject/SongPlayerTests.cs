@@ -16,6 +16,17 @@ namespace TestProject
             Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
         }
 
+        [Fact]
+        public void PlayerStaysInPauseStatusOnBackwardButton()
+        {
+            bool expectedPauseStatus = true;
+
+            SongPlayer songPlayer = new SongPlayer();
+            songPlayer.PlayLastSong();
+
+            Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
+        }
+
 
     }
 }
