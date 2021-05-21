@@ -37,5 +37,17 @@ namespace TestProject
 
             Assert.Equal(expectedPauseStatus, songPlayer.getPauseStatus());
         }
+
+        [Fact]
+        public void CheckIfVolumeChangeWorksAsExpected()
+        {
+            float expectedVolume = (float) 0.25;
+
+            SongPlayer songPlayer = new SongPlayer();
+            songPlayer.SetVolume(25);
+
+            Assert.Equal(expectedVolume, songPlayer.GetCurrentVolume(), 2);
+
+        }
     }
 }
