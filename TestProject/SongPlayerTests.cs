@@ -98,5 +98,17 @@ namespace TestProject
             playListHandlerMock.Verify();
         }
 
+        [Fact]
+        public void ThrowExceptionIfTrackIsNotOnDisk()
+        {
+            var playListHandlerMock = new Mock<IPlaylistHandler>();
+            playListHandlerMock.Setup(p => p.returnFirstTrack()).Returns(new SingleTrack("test", "test", "1", false));
+
+            SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
+            Assert.Throws<System.IO.FileNotFoundException>(() => songPlayer.PlaySong());
+
+            playListHandlerMock.Verify();
+        }
+
     }
 }
