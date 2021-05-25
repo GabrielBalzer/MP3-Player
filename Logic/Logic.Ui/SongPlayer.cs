@@ -166,14 +166,9 @@ namespace MP3Player.Logic.Ui
         {
             if (audioFileReader != null)
             {
-                var currentTime = audioFileReader.CurrentTime.TotalSeconds;
-
-                return Math.Floor(currentTime);
+                return Math.Floor(audioFileReader.CurrentTime.TotalSeconds);
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         public void DisposeAudioFileReaderAndWaveOut()
