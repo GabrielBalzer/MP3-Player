@@ -217,7 +217,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public void SetPosition(int seconds)
+        public void SetPositionInTrackToGivenSeconds(int seconds)
         {
             if (audioFileReader != null)
             {

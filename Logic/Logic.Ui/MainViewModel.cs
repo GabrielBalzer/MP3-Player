@@ -62,7 +62,7 @@ namespace MP3Player.Logic.Ui
 
                                 if (Communicator.ProgressSliderValueChanged)
                                 {
-                                    songPlayer.SetPosition((int)ProgressSliderValue);
+                                    songPlayer.SetPositionInTrackToGivenSeconds((int)ProgressSliderValue);
                                     Communicator.ProgressSliderValueChanged = false;
                                     //Console.WriteLine("Loopcomm");
                                 }

@@ -17,7 +17,7 @@ namespace MP3Player.Logic.Ui
         double GetCurrentTrackTimeInSeconds();
         void DisposeAudioFileReaderAndWaveOut();
         int GetCurrentTrackProgress();
-        void SetPosition(int value);
+        void SetPositionInTrackToGivenSeconds(int value);
 
     }
 }
