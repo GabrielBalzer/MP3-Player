@@ -62,26 +62,31 @@ namespace MP3Player.Logic.Ui
             }
             else
             {
-                if (PlayBackPaused)
+                PlaySongIfPausedSkipIfUnpaused();
+            }
+        }
+
+        private void PlaySongIfPausedSkipIfUnpaused()
+        {
+            if (PlayBackPaused)
+            {
+                try
                 {
-                    try
-                    {
-                        waveOut.Play();
-                        PlayBackPaused = false;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
+                    waveOut.Play();
+                    PlayBackPaused = false;
                 }
-                else
+                catch (Exception e)
                 {
-                        audioFileReader = new AudioFileReader(playlistHandler.GetNextTrack().FilePath);
-                        waveOut.Stop();
-                        waveOut.Init(audioFileReader);
-                        waveOut.Play();
-                        PlayBackPaused = false;
+                    Console.WriteLine(e);
                 }
+            }
+            else
+            {
+                audioFileReader = new AudioFileReader(playlistHandler.GetNextTrack().FilePath);
+                waveOut.Stop();
+                waveOut.Init(audioFileReader);
+                waveOut.Play();
+                PlayBackPaused = false;
             }
         }
 
