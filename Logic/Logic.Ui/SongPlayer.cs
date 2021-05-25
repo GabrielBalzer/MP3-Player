@@ -177,7 +177,7 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public void ClearSongReader()
+        public void DisposeAudioFileReaderAndWaveOut()
         {
             if (audioFileReader != null)
             {

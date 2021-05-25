@@ -97,7 +97,7 @@ namespace MP3Player.Logic.Ui
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            songPlayer.ClearSongReader();
+            songPlayer.DisposeAudioFileReaderAndWaveOut();
             Application.Current.Shutdown();
         }
 
