@@ -58,20 +58,7 @@ namespace MP3Player.Logic.Ui
         {
             if ((audioFileReader == null) || waveOut == null)
             {
-                var firstTrack = playlistHandler.returnFirstTrack();
-                if (firstTrack == null)
-                {
-                    Console.WriteLine("No Track in Playlist");
-                }
-                else
-                {
-                    audioFileReader = new AudioFileReader(playlistHandler.returnFirstTrack().FilePath);
-                    waveOut.Init(audioFileReader);
-
-                    PlayBackPaused = false;
-                    waveOut.Play();
-                }
-                
+                CreateAudioFileReaderLoadFirstSongAndPlay();
             }
             else
             {
@@ -95,6 +82,23 @@ namespace MP3Player.Logic.Ui
                         waveOut.Play();
                         PlayBackPaused = false;
                 }
+            }
+        }
+
+        private void CreateAudioFileReaderLoadFirstSongAndPlay()
+        {
+            var firstTrack = playlistHandler.returnFirstTrack();
+            if (firstTrack == null)
+            {
+                Console.WriteLine("No Track in Playlist");
+            }
+            else
+            {
+                audioFileReader = new AudioFileReader(playlistHandler.returnFirstTrack().FilePath);
+                waveOut.Init(audioFileReader);
+
+                PlayBackPaused = false;
+                waveOut.Play();
             }
         }
 
