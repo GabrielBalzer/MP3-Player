@@ -217,12 +217,12 @@ namespace MP3Player.Logic.Ui
             }
         }
 
-        public void SetPosition(int value)
+        public void SetPosition(int seconds)
         {
             if (audioFileReader != null)
             {
                 var totalTimeSteps = (Math.Floor(audioFileReader.TotalTime.TotalSeconds) / 1000);
-                var currentTime = totalTimeSteps * value;
+                var currentTime = totalTimeSteps * seconds;
 
                 audioFileReader.CurrentTime = TimeSpan.FromSeconds(currentTime);
             }
