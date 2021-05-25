@@ -6,18 +6,23 @@ namespace MP3Player.Logic.Ui
     {
         public static string GetCurrentTrackTimeAsString(ISongPlayer songPlayer)
         {
-            return ConvertTimeFromSecondsToFormattedString(songPlayer.GetCurrentTrackTimeInSeconds());
+            TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetCurrentTrackTimeInSeconds());
+
+            string result = string.Format("{0:D2} : {1:D2}",
+                t.Minutes,
+                t.Seconds);
+
+            return result;
         }
 
         public static string GetAbsoluteTrackTimeAsString(ISongPlayer songPlayer)
         {
-            return ConvertTimeFromSecondsToFormattedString(songPlayer.GetTrackLengthInSeconds());
-        }
+            TimeSpan t = TimeSpan.FromSeconds(songPlayer.GetTrackLengthInSeconds());
 
-        private static string ConvertTimeFromSecondsToFormattedString(double seconds)
-        {
-            TimeSpan t = TimeSpan.FromSeconds(seconds);
-            string result = $"{t.Minutes:D2} : {t.Seconds:D2}";
+            string result = string.Format("{0:D2} : {1:D2}",
+                t.Minutes,
+                t.Seconds);
+
             return result;
         }
     }
