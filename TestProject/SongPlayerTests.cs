@@ -83,7 +83,7 @@ namespace TestProject
             string expectedResult = "No Track in Playlist";
 
             var playListHandlerMock = new Mock<IPlaylistHandler>();
-            playListHandlerMock.Setup(p => p.returnFirstTrack()).Returns((SingleTrack)null);
+            playListHandlerMock.Setup(p => p.returnFirstTrack()).Throws(new ArgumentOutOfRangeException());
 
             SongPlayer songPlayer = new SongPlayer(playListHandlerMock.Object);
 

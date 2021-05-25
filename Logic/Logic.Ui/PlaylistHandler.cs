@@ -30,7 +30,7 @@ namespace MP3Player.Logic.Ui
             }
             else
             {
-                return null;
+                throw new ArgumentOutOfRangeException();
             }
         }
 

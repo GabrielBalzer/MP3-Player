@@ -92,18 +92,17 @@ namespace MP3Player.Logic.Ui
 
         private void CreateAudioFileReaderLoadFirstSongAndPlay()
         {
-            var firstTrack = playlistHandler.returnFirstTrack();
-            if (firstTrack == null)
-            {
-                Console.WriteLine("No Track in Playlist");
-            }
-            else
+            try
             {
                 audioFileReader = new AudioFileReader(playlistHandler.returnFirstTrack().FilePath);
                 waveOut.Init(audioFileReader);
 
                 PlayBackPaused = false;
                 waveOut.Play();
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("No Track in Playlist");
             }
         }
 
