@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace MP3Player.Logic.Ui
 {
-    public class MainViewModel : ViewModelBase, INotifyPropertyChanged, IDataErrorInfo
+    public class MainViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static PlaylistHandler playlistHandler = new PlaylistHandler();
@@ -38,16 +38,6 @@ namespace MP3Player.Logic.Ui
             
             
 
-            if (IsInDesignMode)
-            {
-                WindowTitle = "Design";
-                Progress = 30;
-            }
-            else
-            {
-                Progress = 0;
-                WindowTitle = "MP3Player";
-            }
 
 
             DispatcherHelper.Initialize();
