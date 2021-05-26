@@ -64,7 +64,6 @@ namespace MP3Player.Logic.Ui
                                 {
                                     songPlayer.SetPositionInTrackToGivenSeconds((int)ProgressSliderValue);
                                     Communicator.ProgressSliderValueChanged = false;
-                                    //Console.WriteLine("Loopcomm");
                                 }
 
                                 if (!Communicator.ProgressSliderIsDragging)
@@ -102,11 +101,6 @@ namespace MP3Player.Logic.Ui
         }
 
 
-        private void RefreshUI()
-        {
-            this.CurrentSongTime = songPlayer.GetCurrentTrackTimeInSeconds()
-                .ToString(CultureInfo.DefaultThreadCurrentCulture);
-        }
 
         public string WindowTitle { get; private set; }
 
