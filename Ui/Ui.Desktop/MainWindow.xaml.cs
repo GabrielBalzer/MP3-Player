@@ -9,7 +9,7 @@ namespace MP3Player.Ui.Desktop
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow
     {
         public bool sliderValueChanged { get; set; }
         public MainWindow()
