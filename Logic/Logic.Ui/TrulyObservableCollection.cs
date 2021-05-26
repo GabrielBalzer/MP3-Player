@@ -6,6 +6,7 @@ using System.ComponentModel;
 
 namespace MP3Player.Logic.Ui
 {
+    //Found on stackoverflow https://stackoverflow.com/a/5256827
     public sealed class TrulyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged
     {
