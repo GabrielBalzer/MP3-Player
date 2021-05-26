@@ -101,11 +101,6 @@ namespace MP3Player.Logic.Ui
             Application.Current.Shutdown();
         }
 
-        private  void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            this.RefreshUI();
-            CommandManager.InvalidateRequerySuggested();
-        }
 
         private void RefreshUI()
         {
