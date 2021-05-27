@@ -19,8 +19,8 @@ namespace MP3Player.Logic.Ui
 
         public SongPlayer(IPlaylistHandler playlistHandler)
         {
-            this.waveOut.PlaybackStopped += OnPlayBackStopped;
-            this.PlayBackPaused = true;
+            waveOut.PlaybackStopped += OnPlayBackStopped;
+            PlayBackPaused = true;
             this.playlistHandler = playlistHandler;
         }
 
@@ -108,7 +108,6 @@ namespace MP3Player.Logic.Ui
 
         public void OnPlayBackStopped(object sender, StoppedEventArgs e)
         {
-            Console.WriteLine("PlaybackstoppedEvent");
             PlaySong();
         }
 
