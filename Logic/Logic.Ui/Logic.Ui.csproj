@@ -114,6 +114,7 @@
     <Compile Include="ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ObserverPattern.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

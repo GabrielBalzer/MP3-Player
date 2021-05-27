@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MP3Player.Logic.Ui.SongPlayer">
+    <Position X="8" Y="3.25" Width="1.25" />
+    <Members>
+      <Field Name="audioFileReader" Hidden="true" />
+      <Method Name="CreateAudioFileReaderLoadFirstSongAndPlay" Hidden="true" />
+      <Method Name="DisposeAudioFileReaderAndWaveOut" Hidden="true" />
+      <Method Name="GetCurrentTrackProgress" Hidden="true" />
+      <Method Name="GetCurrentTrackTimeInSeconds" Hidden="true" />
+      <Method Name="GetCurrentVolume" Hidden="true" />
+      <Method Name="GetPauseStatus" Hidden="true" />
+      <Method Name="GetTrackLengthInSeconds" Hidden="true" />
+      <Method Name="PauseSong" Hidden="true" />
+      <Field Name="PlayBackPaused" Hidden="true" />
+      <Method Name="PlayLastSong" Hidden="true" />
+      <Field Name="playlistHandler" Hidden="true" />
+      <Method Name="PlayNextSong" Hidden="true" />
+      <Method Name="PlaySong" Hidden="true" />
+      <Method Name="PlaySongIfPausedSkipIfUnpaused" Hidden="true" />
+      <Method Name="SetPositionInTrackToGivenSeconds" Hidden="true" />
+      <Method Name="SetVolume" Hidden="true" />
+      <Method Name="SongPlayer" Hidden="true" />
+      <Method Name="StopSong" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAgJAAAAAACABAAAEgAIEIQCIBBgACAAAAQAAAACAA=</HashCode>
+      <FileName>SongPlayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="waveOut" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NAudio.Wave.WaveOutEvent">
+    <Position X="4" Y="3.25" Width="2.5" />
+    <Members>
+      <Method Name="Finalize" Hidden="true" />
+      <Property Name="DesiredLatency" Hidden="true" />
+      <Property Name="DeviceNumber" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="GetPosition" Hidden="true" />
+      <Method Name="Init" Hidden="true" />
+      <Property Name="NumberOfBuffers" Hidden="true" />
+      <Property Name="OutputWaveFormat" Hidden="true" />
+      <Method Name="Pause" Hidden="true" />
+      <Method Name="Play" Hidden="true" />
+      <Property Name="PlaybackState" Hidden="true" />
+      <Method Name="Stop" Hidden="true" />
+      <Property Name="Volume" Hidden="true" />
+      <Method Name="WaveOutEvent" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
